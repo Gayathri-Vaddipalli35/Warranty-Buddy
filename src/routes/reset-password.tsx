@@ -28,13 +28,11 @@ function ResetPassword() {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    const isRecovery = window.location.hash.includes("type=recovery");
     const { data } = supabase.auth.onAuthStateChange((event) => {
       if (event === "PASSWORD_RECOVERY") setReady(true);
     });
     supabase.auth.getSession().then(({ data: s }) => {
-      if (s.session && isRecovery) setReady(true);
-      else if (s.session) setReady(true);
+      if (s.session) setReady(true);
     });
     return () => data.subscription.unsubscribe();
   }, []);
