@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Warranty date math lives only in `src/lib/warranty.ts` (UTC calendar dates, month-end clamping); status is derived from `warranty_end_date` at read time, never stored — keeps one source of truth and avoids cron jobs.
+- Signed-in pages live under `src/routes/_authenticated/` (client-only gate) and read user data with the browser client + RLS via TanStack Query options in `src/lib/*.ts` — RLS is the isolation boundary.
+- Product photos go in the private `product-images` bucket under `<user_id>/...` and are shown via short-lived signed URLs — files stay owner-only.
