@@ -87,7 +87,7 @@ export function ProductForm({ initial, submitLabel, onSubmit }: Props) {
   function pickFile(f: File | undefined) {
     if (!f) return;
     const problem = validateImage(f);
-    if (problem) return toast.error(problem);
+    if (problem) { toast.error(problem); return; }
     setFile(f);
     setRemoved(false);
     setPreview(URL.createObjectURL(f));
@@ -203,7 +203,7 @@ export function ProductForm({ initial, submitLabel, onSubmit }: Props) {
               max={600}
               value={values.warranty_months}
               onChange={(e) => set("warranty_months")(e.target.value)}
-              aria-invalid={!!errors.warranty_months}
+              aria-invalid={!!errors["warranty_months"]}
             />
             <div className="flex flex-wrap gap-1.5">
               {PRESETS.map((m) => (
@@ -219,7 +219,7 @@ export function ProductForm({ initial, submitLabel, onSubmit }: Props) {
                 </button>
               ))}
             </div>
-            {errors.warranty_months && <p className="text-xs font-medium text-destructive">{errors.warranty_months}</p>}
+            {errors["warranty_months"] && <p className="text-xs font-medium text-destructive">{errors["warranty_months"]}</p>}
           </div>
           <div className="grid gap-1.5">
             <Label htmlFor="warranty_start_date">Warranty start date *</Label>
@@ -228,10 +228,10 @@ export function ProductForm({ initial, submitLabel, onSubmit }: Props) {
               type="date"
               value={values.warranty_start_date}
               onChange={(e) => { setStartTouched(true); set("warranty_start_date")(e.target.value); }}
-              aria-invalid={!!errors.warranty_start_date}
+              aria-invalid={!!errors["warranty_start_date"]}
             />
             <p className="text-xs text-muted-foreground">Usually the purchase or delivery date.</p>
-            {errors.warranty_start_date && <p className="text-xs font-medium text-destructive">{errors.warranty_start_date}</p>}
+            {errors["warranty_start_date"] && <p className="text-xs font-medium text-destructive">{errors["warranty_start_date"]}</p>}
           </div>
         </div>
         <div className="mt-5 rounded-xl bg-primary-soft p-4 text-sm text-primary-deep">

@@ -56,7 +56,7 @@ export function AppShell() {
   const { user } = useRouteContext({ from: "/_authenticated" });
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const name = (user.user_metadata?.full_name as string | undefined) ?? user.email ?? "You";
+  const name = (user.user_metadata?.["full_name"] as string | undefined) ?? user.email ?? "You";
   const initials = name.split(/\s+/).map((p) => p[0]).slice(0, 2).join("").toUpperCase();
 
   async function signOut() {

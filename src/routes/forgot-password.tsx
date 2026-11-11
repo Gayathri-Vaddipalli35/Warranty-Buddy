@@ -30,13 +30,13 @@ function ForgotPassword() {
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const email = z.string().trim().email().safeParse(new FormData(e.currentTarget).get("email"));
-    if (!email.success) return toast.error("Enter a valid email address");
+    if (!email.success) { toast.error("Enter a valid email address"); return; }
     setBusy(true);
     const { error } = await supabase.auth.resetPasswordForEmail(email.data, {
       redirectTo: `${window.location.origin}/reset-password`,
     });
     setBusy(false);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     setSent(true);
   }
 

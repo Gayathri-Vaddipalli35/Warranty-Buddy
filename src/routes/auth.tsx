@@ -70,28 +70,28 @@ function AuthPage() {
     const fd = new FormData(e.currentTarget);
     const email = emailSchema.safeParse(fd.get("email"));
     const password = passwordSchema.safeParse(fd.get("password"));
-    if (!email.success) return toast.error(email.error.issues[0].message);
-    if (!password.success) return toast.error(password.error.issues[0].message);
+    if (!email.success) { toast.error(email.error.issues[0]?.message ?? "Invalid value"); return; }
+    if (!password.success) { toast.error(password.error.issues[0]?.message ?? "Invalid value"); return; }
 
     setBusy(true);
     try {
       if (mode === "signup") {
         const fullName = String(fd.get("fullName") ?? "").trim().slice(0, 120);
-        if (!fullName) return toast.error("Please enter your name");
-        if (fd.get("confirm") !== password.data) return toast.error("Passwords do not match");
+        if (!fullName) { toast.error("Please enter your name"); return; }
+        if (fd.get("confirm") !== password.data) { toast.error("Passwords do not match"); return; }
         const { data, error } = await supabase.auth.signUp({
           email: email.data,
           password: password.data,
           options: { emailRedirectTo: window.location.origin, data: { full_name: fullName } },
         });
-        if (error) return toast.error(error.message);
+        if (error) { toast.error(error.message); return; }
         if (data.session) navigate({ to: "/dashboard" });
         else setSentTo(email.data);
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email: email.data, password: password.data });
         if (error) {
           if (error.message.toLowerCase().includes("not confirmed")) setUnconfirmed(email.data);
-          return toast.error(error.message === "Invalid login credentials" ? "Wrong email or password." : error.message);
+          { toast.error(error.message === "Invalid login credentials" ? "Wrong email or password." : error.message); return; }
         }
         navigate({ to: safePath(search.redirect) });
       }
@@ -103,7 +103,7 @@ function AuthPage() {
   async function social(provider: "google" | "lovable") {
     if (search.redirect) sessionStorage.setItem("wb:after-auth", safePath(search.redirect));
     const result = await lovable.auth.signInWithOAuth(provider, { redirect_uri: window.location.origin });
-    if (result.error) return toast.error("Sign-in didn't complete. Please try again.");
+    if (result.error) { toast.error("Sign-in didn't complete. Please try again."); return; }
     if (result.redirected) return;
     navigate({ to: safePath(sessionStorage.getItem("wb:after-auth") ?? undefined) });
   }

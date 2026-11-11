@@ -47,7 +47,7 @@ function DashboardSkeleton() {
 function Dashboard() {
   const { data: products } = useSuspenseQuery(productsQuery);
   const { user } = Route.useRouteContext();
-  const firstName = ((user.user_metadata?.full_name as string | undefined) ?? "").split(" ")[0];
+  const firstName = ((user.user_metadata?.["full_name"] as string | undefined) ?? "").split(" ")[0];
 
   const stats = useMemo(() => {
     const today = todayLocal();

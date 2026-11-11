@@ -69,9 +69,11 @@ function Landing() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild variant="hero" size="lg">
-                <Link to={user ? "/dashboard" : "/auth"} search={user ? undefined : { mode: "signup" }}>
-                  {user ? "Go to my products" : "Start tracking free"} <ArrowRight />
-                </Link>
+                {user ? (
+                  <Link to="/dashboard">Go to my dashboard <ArrowRight /></Link>
+                ) : (
+                  <Link to="/auth" search={{ mode: "signup" }}>Start tracking free <ArrowRight /></Link>
+                )}
               </Button>
             </div>
           </div>
