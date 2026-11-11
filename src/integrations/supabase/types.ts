@@ -14,7 +14,90 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      products: {
+        Row: {
+          brand: string | null
+          category: string
+          created_at: string
+          id: string
+          image_path: string | null
+          invoice_reference: string | null
+          model_number: string | null
+          name: string
+          notes: string | null
+          purchase_date: string
+          purchase_price: number | null
+          seller_name: string | null
+          serial_number: string | null
+          updated_at: string
+          user_id: string
+          warranty_end_date: string
+          warranty_months: number
+          warranty_start_date: string
+        }
+        Insert: {
+          brand?: string | null
+          category?: string
+          created_at?: string
+          id?: string
+          image_path?: string | null
+          invoice_reference?: string | null
+          model_number?: string | null
+          name: string
+          notes?: string | null
+          purchase_date: string
+          purchase_price?: number | null
+          seller_name?: string | null
+          serial_number?: string | null
+          updated_at?: string
+          user_id?: string
+          warranty_end_date: string
+          warranty_months: number
+          warranty_start_date: string
+        }
+        Update: {
+          brand?: string | null
+          category?: string
+          created_at?: string
+          id?: string
+          image_path?: string | null
+          invoice_reference?: string | null
+          model_number?: string | null
+          name?: string
+          notes?: string | null
+          purchase_date?: string
+          purchase_price?: number | null
+          seller_name?: string | null
+          serial_number?: string | null
+          updated_at?: string
+          user_id?: string
+          warranty_end_date?: string
+          warranty_months?: number
+          warranty_start_date?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
